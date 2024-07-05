@@ -38,15 +38,19 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 set background=dark
+" Turn off all bells
+set belloff=all
+" Always split new windows to the bottom of the current one
+set splitbelow
 
 " Tags file
 set tags=./tags
 
 " Set text encoding to UTF-8 by default
-set encoding=utf-8
+set encoding=UTF-8
 
 " Status line
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L] 
+"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L] 
 set laststatus=2 
 
 " Always show tabs line
@@ -66,28 +70,20 @@ nnoremap <C-n>  :tabnew<CR>
 " Space to fold/unfold
 nnoremap <space> za
 
-" Toggle NerdTREE with F2
+" Bind Fn keys
 nnoremap <silent> <F2> :NERDTreeToggle<CR>
-
-" Toggle Taglist with F3
 nnoremap <silent> <F3> :TlistToggle<CR>
-
-" Toggle MRU with F4
 nnoremap <silent> <F4> :MRU<CR>
-
-" Toggle buffers with F5
 nnoremap <F5> :buffers<CR>:buffer<Space>
+let g:ctrlp_map = '<F6>'
 
 " Set color schema
-color desert
+color koehler
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
-set syntax=on
+syntax on
 set hlsearch
-
-autocmd BufNewFile,BufRead *.cgi set syntax=perl
-autocmd BufNewFile,BufRead *.tt  set syntax=html
 
 " Set tab label to filename only
 set tabline=%!MyTabLine()
@@ -153,35 +149,21 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
-" --- Per-project config
-command Pmeetapp :set noexpandtab
+" --- DevIcons
+let g:webdevicons_enable = 1
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:Powerline_symbols='unicode' "Поддержка unicode
+
+" --- Airline theme
+let g:airline_theme='violet'
+let g:airline_powerline_fonts = 1
 
 " --- NERDTree
-
 let NERDTreeShowHidden = 1
+let g:NERDTreeHighlightFolders = 1
+let g:NERDTreeNodeDelimiter = "\u00a0"
 
 " --- TagList
-
 " open tags panel on the right
 let Tlist_Use_Right_Window = 1
 
-" Pathogen
-execute pathogen#infect()
-call pathogen#helptags()
-
-" Vdebug
-let g:vdebug_options = {}
-let g:vdebug_options["port"] = 9000
-let g:vdebug_options["break_on_open"]=0
-
-" CtrlP
-let g:ctrlp_map = '<F6>'
-
-" Vuejs
-autocmd BufNewFile,BufRead *.vue set filetype=html "When opening or creating a .vue file set the filetype to HTML for proper rendering
-
-" Ale
-let g:ale_perl_perlcritic_showrules = 1
-
-" Gitblame
-nnoremap <Leader>gb :Gblame<CR>
